@@ -29,7 +29,7 @@ public class Main extends JFrame implements ActionListener{
         add(display,BorderLayout.NORTH);
         JPanel pad=new JPanel(new GridLayout(5,4,6,6));
         String[] buttons = {
-                "C", "Del", "%", "/",
+                "C", "DEL", "%", "/",
                 "7", "8", "9", "*",
                 "4", "5", "6", "-",
                 "1", "2", "3", "+",
@@ -59,7 +59,7 @@ public class Main extends JFrame implements ActionListener{
         if (cmd.matches("[0-9]")){
             current = current.equals("0")?cmd : current+cmd;
         }else if(cmd.equals( ".")){
-            if(current==null){
+            if(!current.contains(".")){
                 current += ".";
 
             }
@@ -103,6 +103,12 @@ public class Main extends JFrame implements ActionListener{
                 result = a-b;
                 break;
             case "/":
+                if (b == 0) {
+                    current = "Error";
+                    previous = null;
+                    operator = null;
+                    return;
+                }
                 result = a/b;
                 break;
             case "*":
